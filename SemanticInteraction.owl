@@ -22,11 +22,6 @@
     </rdfs:subClassOf>
   </owl:Class>
   <owl:Class rdf:about="http://www.sofia-project.eu/ontologies/core/2010/01/19/sofia.owl#SmartObject"/>
-  <owl:Class rdf:ID="IDType">
-    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >Some instances should be defined, e.g. RFID_Mifare</rdfs:comment>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.sofia-project.eu/ontologies/core/2010/01/19/sofia.owl#State"/>
   <owl:Class rdf:ID="FalseToOff">
     <owl:equivalentClass>
       <owl:Restriction>
@@ -55,16 +50,24 @@
       <owl:Class rdf:ID="BoolToOnOff"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="#BoolToOnOff">
-    <rdfs:subClassOf>
-      <owl:Class rdf:ID="Transformation"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="#Transformation">
+  <owl:Class rdf:about="http://www.sofia-project.eu/ontologies/core/2010/01/19/sofia.owl#State"/>
+  <owl:Class rdf:ID="IDType">
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >Semantic transformer used e.g. to transform a user input to an interaction event</rdfs:comment>
+    >Some instances should be defined, e.g. RFID_Mifare</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="InteractionEvent">
+    <rdfs:subClassOf rdf:resource="http://www.sofia-project.eu/ontologies/core/2010/01/19/sofia.owl#Event"/>
   </owl:Class>
   <owl:Class rdf:ID="TrueToOn">
+    <owl:equivalentClass>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >on</owl:hasValue>
+        <owl:onProperty>
+          <owl:DatatypeProperty rdf:about="#dataValue"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </owl:equivalentClass>
     <owl:equivalentClass>
       <owl:Restriction>
         <owl:onProperty>
@@ -86,11 +89,25 @@
         >true</owl:hasValue>
       </owl:Restriction>
     </owl:equivalentClass>
-    <rdfs:subClassOf rdf:resource="#BoolToOnOff"/>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#BoolToOnOff"/>
+    </rdfs:subClassOf>
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >Checks for dataValue of True and infers new canBeTransformedTo property between InteractionPrimitive and OnEvent</rdfs:comment>
   </owl:Class>
   <owl:Class rdf:about="http://www.sofia-project.eu/ontologies/core/2010/01/19/sofia.owl#Identification"/>
+  <owl:Class rdf:about="#BoolToOnOff">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="Transformation"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#Transformation">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Semantic transformer used e.g. to transform a user input to an interaction event</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="SwitchEvent">
+    <rdfs:subClassOf rdf:resource="#InteractionEvent"/>
+  </owl:Class>
   <owl:Class rdf:ID="InteractionPrimitive">
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >Smallest addressable interaction element that has a meaningful relation to the interaction itself</rdfs:comment>
@@ -153,13 +170,19 @@
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
   </owl:DatatypeProperty>
   <RangeMeasure rdf:ID="Triple">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Capable of representing values from 0-999 (triple digits)</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </RangeMeasure>
   <owl:NamedIndividual rdf:ID="event7357"/>
   <RangeMeasure rdf:ID="Single">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Capable of representing values from 0-9 (single digits)</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </RangeMeasure>
   <owl:NamedIndividual rdf:ID="Binary">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >True/False, 0 or 1</rdfs:comment>
     <rdf:type rdf:resource="#RangeMeasure"/>
   </owl:NamedIndividual>
   <owl:AnnotationProperty rdf:about="http://www.w3.org/2000/01/rdf-schema#comment"/>
@@ -171,11 +194,13 @@
 </dataValue>
   </owl:NamedIndividual>
   <RangeMeasure rdf:ID="Double">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Capable of representing values from 0-99 (double digits)</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </RangeMeasure>
   <owl:NamedIndividual rdf:ID="testPrimitive">
     <dataValue rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
-    >true</dataValue>
+    >false</dataValue>
     <interactionPrimitiveOf>
       <owl:NamedIndividual rdf:ID="testObject">
         <rdf:type rdf:resource="http://www.sofia-project.eu/ontologies/core/2010/01/19/sofia.owl#SmartObject"/>
@@ -186,6 +211,8 @@
     <rdf:type rdf:resource="#Transformation"/>
   </owl:NamedIndividual>
   <RangeMeasure rdf:ID="Real">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Capable of representing more than 1000 discrete values (infinite)</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </RangeMeasure>
   <owl:NamedIndividual rdf:ID="RFID_Mifare">
