@@ -120,6 +120,7 @@
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="hasRangeMeasure">
+    <rdfs:range rdf:resource="#RangeMeasure"/>
     <rdfs:domain rdf:resource="#InteractionPrimitive"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="mediaTransformation"/>
@@ -151,27 +152,27 @@
     <rdfs:domain rdf:resource="http://www.sofia-project.eu/ontologies/core/2010/01/19/sofia.owl#Event"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
   </owl:DatatypeProperty>
+  <RangeMeasure rdf:ID="Triple">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </RangeMeasure>
   <owl:NamedIndividual rdf:ID="event7357"/>
-  <owl:NamedIndividual rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#Triple">
+  <RangeMeasure rdf:ID="Single">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </RangeMeasure>
+  <owl:NamedIndividual rdf:ID="Binary">
     <rdf:type rdf:resource="#RangeMeasure"/>
   </owl:NamedIndividual>
   <owl:AnnotationProperty rdf:about="http://www.w3.org/2000/01/rdf-schema#comment"/>
   <owl:NamedIndividual rdf:ID="IPAddress">
     <rdf:type rdf:resource="#IDType"/>
   </owl:NamedIndividual>
-  <owl:NamedIndividual rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#Double">
-    <rdf:type rdf:resource="#RangeMeasure"/>
-  </owl:NamedIndividual>
   <owl:NamedIndividual rdf:ID="woopwoop">
     <dataValue>whatsup
 </dataValue>
   </owl:NamedIndividual>
-  <RangeMeasure rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#Binary">
+  <RangeMeasure rdf:ID="Double">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </RangeMeasure>
-  <owl:NamedIndividual rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#Single">
-    <rdf:type rdf:resource="#RangeMeasure"/>
-  </owl:NamedIndividual>
   <owl:NamedIndividual rdf:ID="testPrimitive">
     <dataValue rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
     >true</dataValue>
@@ -184,9 +185,9 @@
   <owl:NamedIndividual rdf:ID="transformation7357">
     <rdf:type rdf:resource="#Transformation"/>
   </owl:NamedIndividual>
-  <owl:NamedIndividual rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#Real">
-    <rdf:type rdf:resource="#RangeMeasure"/>
-  </owl:NamedIndividual>
+  <RangeMeasure rdf:ID="Real">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </RangeMeasure>
   <owl:NamedIndividual rdf:ID="RFID_Mifare">
     <rdf:type rdf:resource="#IDType"/>
   </owl:NamedIndividual>
