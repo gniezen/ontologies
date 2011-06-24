@@ -12,94 +12,92 @@
     xmlns:spl="http://spinrdf.org/spl#"
   xml:base="http://sofia.gotdns.com/ontologies/semint-functions">
   <owl:Ontology rdf:about="">
-    <owl:imports rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl"/>
-    <owl:imports rdf:resource="http://sofia.gotdns.com/ontologies/SemanticInteraction.owl"/>
+    <owl:imports rdf:resource="http://spinrdf.org/spin"/>
     <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >Created with TopBraid Composer</owl:versionInfo>
-    <owl:imports rdf:resource="http://spinrdf.org/spin"/>
+    <owl:imports rdf:resource="http://sofia.gotdns.com/ontologies/SemanticInteraction.owl"/>
+    <owl:imports rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl"/>
   </owl:Ontology>
   <spin:MagicProperty rdf:ID="hasLastEvent">
-    <spin:body>
-      <sp:Select>
-        <sp:where rdf:parseType="Collection">
-          <rdf:Description>
-            <sp:subject>
-              <rdf:Description rdf:nodeID="A0">
-                <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-                >lastEvent</sp:varName>
-              </rdf:Description>
-            </sp:subject>
-            <sp:predicate rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
-            <sp:object rdf:resource="http://www.sofia-project.eu/ontologies/core/2010/01/19/sofia.owl#Event"/>
-          </rdf:Description>
-          <rdf:Description>
-            <sp:subject rdf:resource="http://spinrdf.org/spin#_arg1"/>
-            <sp:predicate rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
-            <sp:object rdf:resource="http://www.sofia-project.eu/ontologies/core/2010/01/19/sofia.owl#SmartObject"/>
-          </rdf:Description>
-          <rdf:Description>
-            <sp:subject rdf:nodeID="A0"/>
-            <sp:predicate rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#generatedBy"/>
-            <sp:object rdf:resource="http://spinrdf.org/spin#_arg1"/>
-          </rdf:Description>
-          <rdf:Description>
-            <sp:subject rdf:nodeID="A0"/>
-            <sp:predicate rdf:resource="http://sofia.gotdns.com/ontologies/SemanticInteraction.owl#inXSDDateTime"/>
-            <sp:object>
-              <rdf:Description rdf:nodeID="A1">
-                <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-                >last</sp:varName>
-              </rdf:Description>
-            </sp:object>
-          </rdf:Description>
-        </sp:where>
-        <sp:resultVariables rdf:parseType="Collection">
-          <rdf:Description rdf:nodeID="A0"/>
-        </sp:resultVariables>
-        <sp:limit rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
-        >1</sp:limit>
-        <sp:orderBy rdf:parseType="Collection">
-          <sp:Desc>
-            <sp:expression rdf:nodeID="A1"/>
-          </sp:Desc>
-        </sp:orderBy>
-      </sp:Select>
-    </spin:body>
+    <rdfs:subClassOf rdf:resource="http://spinrdf.org/spin#MagicProperties"/>
     <spin:constraint>
       <spl:Argument>
         <spl:predicate rdf:resource="http://spinrdf.org/sp#arg1"/>
       </spl:Argument>
     </spin:constraint>
-    <rdfs:subClassOf rdf:resource="http://spinrdf.org/spin#MagicProperties"/>
+    <spin:body>
+      <sp:Select>
+        <sp:orderBy rdf:parseType="Collection">
+          <sp:Desc>
+            <sp:expression>
+              <rdf:Description rdf:nodeID="A0">
+                <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                >last</sp:varName>
+              </rdf:Description>
+            </sp:expression>
+          </sp:Desc>
+        </sp:orderBy>
+        <sp:limit rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
+        >1</sp:limit>
+        <sp:resultVariables rdf:parseType="Collection">
+          <rdf:Description rdf:nodeID="A1">
+            <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >lastEvent</sp:varName>
+          </rdf:Description>
+        </sp:resultVariables>
+        <sp:where rdf:parseType="Collection">
+          <rdf:Description>
+            <sp:object rdf:resource="http://www.sofia-project.eu/ontologies/core/2010/01/19/sofia.owl#Event"/>
+            <sp:predicate rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+            <sp:subject rdf:nodeID="A1"/>
+          </rdf:Description>
+          <rdf:Description>
+            <sp:object rdf:resource="http://www.sofia-project.eu/ontologies/core/2010/01/19/sofia.owl#SmartObject"/>
+            <sp:predicate rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+            <sp:subject rdf:resource="http://spinrdf.org/spin#_arg1"/>
+          </rdf:Description>
+          <rdf:Description>
+            <sp:object rdf:resource="http://spinrdf.org/spin#_arg1"/>
+            <sp:predicate rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#generatedBy"/>
+            <sp:subject rdf:nodeID="A1"/>
+          </rdf:Description>
+          <rdf:Description>
+            <sp:object rdf:nodeID="A0"/>
+            <sp:predicate rdf:resource="http://sofia.gotdns.com/ontologies/SemanticInteraction.owl#inXSDDateTime"/>
+            <sp:subject rdf:nodeID="A1"/>
+          </rdf:Description>
+        </sp:where>
+      </sp:Select>
+    </spin:body>
   </spin:MagicProperty>
   <spin:Function rdf:ID="durationLessThan">
+    <spin:constraint>
+      <spl:Argument>
+        <spl:valueType rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <spl:predicate rdf:resource="http://spinrdf.org/sp#arg2"/>
+      </spl:Argument>
+    </spin:constraint>
+    <spin:constraint>
+      <spl:Argument>
+        <spl:valueType rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <spl:predicate rdf:resource="http://spinrdf.org/sp#arg1"/>
+      </spl:Argument>
+    </spin:constraint>
+    <rdfs:subClassOf rdf:resource="http://spinrdf.org/spin#Functions"/>
     <spin:body>
       <sp:Ask>
         <sp:where rdf:parseType="Collection">
           <sp:Filter>
             <sp:expression>
               <sp:lt>
-                <sp:arg1 rdf:resource="http://spinrdf.org/spin#_arg1"/>
                 <sp:arg2 rdf:resource="http://spinrdf.org/spin#_arg2"/>
+                <sp:arg1 rdf:resource="http://spinrdf.org/spin#_arg1"/>
               </sp:lt>
             </sp:expression>
           </sp:Filter>
         </sp:where>
       </sp:Ask>
     </spin:body>
-    <spin:constraint>
-      <spl:Argument>
-        <spl:predicate rdf:resource="http://spinrdf.org/sp#arg2"/>
-        <spl:valueType rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
-      </spl:Argument>
-    </spin:constraint>
-    <spin:constraint>
-      <spl:Argument>
-        <spl:predicate rdf:resource="http://spinrdf.org/sp#arg1"/>
-        <spl:valueType rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
-      </spl:Argument>
-    </spin:constraint>
-    <rdfs:subClassOf rdf:resource="http://spinrdf.org/spin#Functions"/>
   </spin:Function>
 </rdf:RDF>
 

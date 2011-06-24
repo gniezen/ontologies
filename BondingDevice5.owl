@@ -173,6 +173,7 @@
     <rdfs:range rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#MediaType"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="mediaOriginator"/>
+  <owl:ObjectProperty rdf:ID="earlierThan"/>
   <owl:ObjectProperty rdf:about="http://spinrdf.org/sp#predicate"/>
   <owl:ObjectProperty rdf:about="http://www.sofia-project.eu/ontologies/core/2010/01/19/sofia.owl#hasIdentification">
     <rdfs:domain rdf:resource="http://www.sofia-project.eu/ontologies/core/2010/01/19/sofia.owl#SmartObject"/>
@@ -187,6 +188,9 @@
   <rdf:Description>
     <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >x2</sp:varName>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.sofia-project.eu/ontologies/core/2010/01/19/sofia.owl#launchedBy">
+    <owl:equivalentProperty rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#generatedBy"/>
   </rdf:Description>
   <rdf:Description>
     <sp:object rdf:resource="http://spinrdf.org/spin#_this"/>
