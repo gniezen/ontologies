@@ -188,63 +188,22 @@
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
   </owl:DatatypeProperty>
   <rdf:Description>
-    <sp:object>
-      <rdf:Description rdf:nodeID="A2">
-        <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >x3</sp:varName>
-      </rdf:Description>
-    </sp:object>
-    <sp:predicate rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#connectedTo"/>
-    <sp:subject rdf:resource="http://spinrdf.org/spin#_this"/>
+    <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >x2</sp:varName>
   </rdf:Description>
+  <owl:NamedIndividual rdf:ID="testid4321">
+    <semint:ofIDType rdf:resource="http://sofia.gotdns.com/ontologies/SemanticInteraction.owl#RFID_Mifare"/>
+    <rdf:type rdf:resource="http://www.sofia-project.eu/ontologies/core/2010/01/19/sofia.owl#Identification"/>
+  </owl:NamedIndividual>
   <rdf:Description>
     <sp:predicate rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#convertsMediaType"/>
   </rdf:Description>
-  <owl:AllDifferent>
-    <owl:distinctMembers rdf:parseType="Collection">
-      <owl:NamedIndividual rdf:ID="testDevice1">
-        <sc:transmitsMediaType>
-          <owl:NamedIndividual rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#Audio"/>
-        </sc:transmitsMediaType>
-        <sofia:hasIdentification>
-          <owl:NamedIndividual rdf:ID="testid12345">
-            <semint:idValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-            >192.168.1.4:1234</semint:idValue>
-            <semint:ofIDType rdf:resource="http://sofia.gotdns.com/ontologies/SemanticInteraction.owl#IPAddress"/>
-            <rdf:type rdf:resource="http://www.sofia-project.eu/ontologies/core/2010/01/19/sofia.owl#Identification"/>
-          </owl:NamedIndividual>
-        </sofia:hasIdentification>
-        <rdf:type rdf:resource="http://www.sofia-project.eu/ontologies/core/2010/01/19/sofia.owl#SmartObject"/>
-      </owl:NamedIndividual>
-      <owl:NamedIndividual rdf:ID="testDevice2">
-        <sc:transmitsMediaType>
-          <owl:NamedIndividual rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#RGBValues"/>
-        </sc:transmitsMediaType>
-        <sofia:hasIdentification>
-          <owl:NamedIndividual rdf:ID="testid4321">
-            <semint:ofIDType rdf:resource="http://sofia.gotdns.com/ontologies/SemanticInteraction.owl#RFID_Mifare"/>
-            <rdf:type rdf:resource="http://www.sofia-project.eu/ontologies/core/2010/01/19/sofia.owl#Identification"/>
-          </owl:NamedIndividual>
-        </sofia:hasIdentification>
-        <sc:acceptsMediaType rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#Audio"/>
-        <rdf:type rdf:resource="http://www.sofia-project.eu/ontologies/core/2010/01/19/sofia.owl#SmartObject"/>
-      </owl:NamedIndividual>
-      <owl:NamedIndividual rdf:ID="testDevice3">
-        <sc:acceptsMediaType rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#RGBValues"/>
-        <sc:connectedTo>
-          <sofia:SmartObject rdf:ID="testDevice4">
-            <sc:acceptsMediaType rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#RGBValues"/>
-          </sofia:SmartObject>
-        </sc:connectedTo>
-        <rdf:type rdf:resource="http://www.sofia-project.eu/ontologies/core/2010/01/19/sofia.owl#SmartObject"/>
-      </owl:NamedIndividual>
-      <owl:NamedIndividual rdf:about="#testid12345"/>
-      <owl:NamedIndividual rdf:about="#testid4321"/>
-      <owl:NamedIndividual rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#Audio"/>
-      <owl:NamedIndividual rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#RGBValues"/>
-      <owl:NamedIndividual rdf:about="http://sofia.gotdns.com/ontologies/SemanticInteraction.owl#IPAddress"/>
-    </owl:distinctMembers>
-  </owl:AllDifferent>
+  <owl:NamedIndividual rdf:ID="testid12345">
+    <semint:idValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >192.168.1.4:1234</semint:idValue>
+    <semint:ofIDType rdf:resource="http://sofia.gotdns.com/ontologies/SemanticInteraction.owl#IPAddress"/>
+    <rdf:type rdf:resource="http://www.sofia-project.eu/ontologies/core/2010/01/19/sofia.owl#Identification"/>
+  </owl:NamedIndividual>
   <spin:UpdateTemplate rdf:ID="removeIrreflexive">
     <spin:body>
       <sp:Modify>
@@ -253,7 +212,7 @@
             <sp:object rdf:resource="http://www.w3.org/2002/07/owl#IrreflexiveProperty"/>
             <sp:predicate rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
             <sp:subject>
-              <rdf:Description rdf:nodeID="A3">
+              <rdf:Description rdf:nodeID="A2">
                 <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
                 >p</sp:varName>
               </rdf:Description>
@@ -261,14 +220,14 @@
           </rdf:Description>
           <rdf:Description>
             <sp:object rdf:resource="http://spinrdf.org/spin#_this"/>
-            <sp:predicate rdf:nodeID="A3"/>
+            <sp:predicate rdf:nodeID="A2"/>
             <sp:subject rdf:resource="http://spinrdf.org/spin#_this"/>
           </rdf:Description>
         </sp:where>
         <sp:deletePattern rdf:parseType="Collection">
           <rdf:Description>
             <sp:object rdf:resource="http://spinrdf.org/spin#_this"/>
-            <sp:predicate rdf:nodeID="A3"/>
+            <sp:predicate rdf:nodeID="A2"/>
             <sp:subject rdf:resource="http://spinrdf.org/spin#_this"/>
           </rdf:Description>
         </sp:deletePattern>
@@ -278,6 +237,24 @@
     >Remove irreflexive properties</spin:labelTemplate>
     <rdfs:subClassOf rdf:resource="http://spinrdf.org/spin#UpdateTemplates"/>
   </spin:UpdateTemplate>
+  <rdf:Description>
+    <sp:subject rdf:parseType="Resource">
+    </sp:subject>
+  </rdf:Description>
+  <rdf:Description>
+    <sp:object>
+      <rdf:Description rdf:nodeID="A3">
+        <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >x2</sp:varName>
+      </rdf:Description>
+    </sp:object>
+    <sp:predicate rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#convertsMediaType"/>
+    <sp:subject rdf:resource="http://spinrdf.org/spin#_this"/>
+  </rdf:Description>
+  <rdf:Description>
+    <sp:subject rdf:parseType="Resource">
+    </sp:subject>
+  </rdf:Description>
   <rdf:Description>
     <sp:object>
       <rdf:Description rdf:nodeID="A4">
@@ -289,22 +266,18 @@
     <sp:subject rdf:resource="http://spinrdf.org/spin#_this"/>
   </rdf:Description>
   <rdf:Description>
+    <sp:predicate rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#convertsMediaType"/>
+  </rdf:Description>
+  <rdf:Description>
+    <sp:object rdf:resource="http://spinrdf.org/spin#_this"/>
+  </rdf:Description>
+  <semint:InteractionPrimitive rdf:ID="PlayButton">
+    <semint:dataValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >on</semint:dataValue>
+  </semint:InteractionPrimitive>
+  <rdf:Description>
     <sp:object>
       <rdf:Description rdf:nodeID="A5">
-        <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-        >x2</sp:varName>
-      </rdf:Description>
-    </sp:object>
-    <sp:predicate rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#convertsMediaType"/>
-    <sp:subject rdf:resource="http://spinrdf.org/spin#_this"/>
-  </rdf:Description>
-  <rdf:Description>
-    <sp:object rdf:parseType="Resource">
-    </sp:object>
-  </rdf:Description>
-  <rdf:Description>
-    <sp:object>
-      <rdf:Description rdf:nodeID="A6">
         <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
         >x3</sp:varName>
       </rdf:Description>
@@ -313,40 +286,24 @@
     <sp:subject rdf:resource="http://spinrdf.org/spin#_this"/>
   </rdf:Description>
   <rdf:Description>
-    <sp:object rdf:nodeID="A6"/>
-    <sp:predicate rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#convertsMediaType"/>
-    <sp:subject rdf:nodeID="A5"/>
-  </rdf:Description>
-  <semint:InteractionPrimitive rdf:ID="PlayButton">
-    <semint:dataValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >on</semint:dataValue>
-  </semint:InteractionPrimitive>
-  <rdf:Description>
-    <sp:subject rdf:resource="http://spinrdf.org/spin#_this"/>
-  </rdf:Description>
-  <rdf:Description>
-    <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >x2</sp:varName>
+    <sp:object rdf:parseType="Resource">
+    </sp:object>
   </rdf:Description>
   <sofia:Event rdf:ID="event2">
     <sc:generatedBy>
       <sofia:SmartObject rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#nokiaN900">
-        <sc:acceptsMediaType rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#Audio"/>
+        <sc:hasRFIDTag rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >4400863216</sc:hasRFIDTag>
+        <sc:acceptsMediaType>
+          <owl:NamedIndividual rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#Audio"/>
+        </sc:acceptsMediaType>
         <sc:transmitsMediaType rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#Audio"/>
         <sofia:hasIdentification rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#id44d640d1-7877-4505-854e-4f30fc03afe3"/>
-        <sc:connectedTo rdf:resource="#testDevice3"/>
       </sofia:SmartObject>
     </sc:generatedBy>
     <semint:inXSDDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
     >2011-06-22T07:00:00</semint:inXSDDateTime>
   </sofia:Event>
-  <rdf:Description>
-    <sp:subject rdf:parseType="Resource">
-    </sp:subject>
-  </rdf:Description>
-  <rdf:Description>
-    <sp:predicate rdf:resource="#mediaSourceSO"/>
-  </rdf:Description>
   <sc:PlayEvent rdf:ID="event1">
     <sc:generatedBy rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#nokiaN900"/>
     <semint:inXSDDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
@@ -354,41 +311,70 @@
   </sc:PlayEvent>
   <rdf:Description>
     <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >x1</sp:varName>
+    >x2</sp:varName>
   </rdf:Description>
   <rdf:Description>
-    <sp:object rdf:parseType="Resource">
-    </sp:object>
+    <sp:where rdf:parseType="Resource">
+    </sp:where>
   </rdf:Description>
   <rdf:Description>
     <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >x1</sp:varName>
   </rdf:Description>
+  <sp:Construct/>
+  <sofia:SmartObject rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#FamilyBondingDevice1">
+    <sc:connectedTo>
+      <sofia:SmartObject rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#FamilyBondingDevice2"/>
+    </sc:connectedTo>
+  </sofia:SmartObject>
   <rdf:Description>
-    <sp:predicate rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#convertsMediaType"/>
-  </rdf:Description>
-  <rdf:Description>
-    <sp:templates rdf:parseType="Resource">
-    </sp:templates>
-  </rdf:Description>
-  <rdf:Description>
-    <sp:subject rdf:resource="http://spinrdf.org/spin#_this"/>
+    <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >x1</sp:varName>
   </rdf:Description>
   <rdf:Description rdf:ID="testEvent1">
     <sc:generatedBy rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#nokiaN900"/>
     <semint:inXSDDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
     >2011-06-21T14:36:02</semint:inXSDDateTime>
   </rdf:Description>
+  <rdf:Description>
+    <sp:object rdf:resource="http://spinrdf.org/spin#_this"/>
+  </rdf:Description>
+  <rdf:Description>
+    <sp:subject rdf:resource="http://spinrdf.org/spin#_this"/>
+  </rdf:Description>
   <owl:AnnotationProperty rdf:about="http://spinrdf.org/spin#imports"/>
   <rdf:Description rdf:about="http://www.sofia-project.eu/ontologies/core/2010/01/19/sofia.owl#launchedBy">
     <owl:equivalentProperty rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#generatedBy"/>
   </rdf:Description>
   <rdf:Description>
+    <sp:predicate rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#connectedTo"/>
+  </rdf:Description>
+  <rdf:Description>
+    <sp:predicate rdf:resource="#mediaSourceSO"/>
+  </rdf:Description>
+  <rdf:Description>
     <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >x2</sp:varName>
   </rdf:Description>
+  <owl:NamedIndividual rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#RGBValues"/>
   <rdf:Description>
-    <sp:object rdf:resource="http://spinrdf.org/spin#_this"/>
+    <sp:object>
+      <rdf:Description rdf:nodeID="A6">
+        <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >x3</sp:varName>
+      </rdf:Description>
+    </sp:object>
+    <sp:predicate rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#convertsMediaType"/>
+    <sp:subject rdf:nodeID="A4"/>
+  </rdf:Description>
+  <rdf:Description>
+    <sp:object rdf:nodeID="A5"/>
+    <sp:predicate rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#convertsMediaType"/>
+    <sp:subject rdf:nodeID="A3"/>
+  </rdf:Description>
+  <rdf:Description>
+    <sp:subject rdf:parseType="Resource">
+    </sp:subject>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.w3.org/2002/07/owl#Thing">
     <spin:rule>
@@ -570,25 +556,8 @@
     </spin:rule>
   </rdf:Description>
   <rdf:Description>
-    <sp:object rdf:nodeID="A2"/>
-    <sp:predicate rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#convertsMediaType"/>
-    <sp:subject rdf:nodeID="A4"/>
-  </rdf:Description>
-  <rdf:Description>
-    <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-    >x2</sp:varName>
-  </rdf:Description>
-  <rdf:Description>
-    <sp:object rdf:resource="http://spinrdf.org/spin#_this"/>
-  </rdf:Description>
-  <rdf:Description>
-    <sp:subject rdf:parseType="Resource">
-    </sp:subject>
-  </rdf:Description>
-  <sp:Construct/>
-  <rdf:Description>
-    <sp:where rdf:parseType="Resource">
-    </sp:where>
+    <sp:object rdf:parseType="Resource">
+    </sp:object>
   </rdf:Description>
   <spin:RuleProperty rdf:about="http://spinrdf.org/spin#fireOnceRule">
     <spin:rulePropertyMaxIterationCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"
@@ -596,8 +565,7 @@
     <rdfs:subPropertyOf rdf:resource="http://spinrdf.org/spin#rule"/>
   </spin:RuleProperty>
   <rdf:Description>
-    <sp:subject rdf:parseType="Resource">
-    </sp:subject>
+    <sp:subject rdf:resource="http://spinrdf.org/spin#_this"/>
   </rdf:Description>
   <spin:UpdateTemplate rdf:ID="removeOldMediaPaths">
     <spin:body>
@@ -659,7 +627,13 @@
     <rdfs:subClassOf rdf:resource="http://spinrdf.org/spin#UpdateTemplates"/>
   </spin:UpdateTemplate>
   <rdf:Description>
+    <sp:object rdf:nodeID="A6"/>
     <sp:predicate rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#connectedTo"/>
+    <sp:subject rdf:resource="http://spinrdf.org/spin#_this"/>
+  </rdf:Description>
+  <rdf:Description>
+    <sp:templates rdf:parseType="Resource">
+    </sp:templates>
   </rdf:Description>
   <rdf:Description rdf:about="http://sofia.gotdns.com/ontologies/SemanticInteraction.owl#InteractionPrimitive">
     <spin:rule>
