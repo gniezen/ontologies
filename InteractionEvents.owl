@@ -36,7 +36,60 @@
     </rdfs:subClassOf>
   </owl:Class>
   <owl:Class rdf:about="#DeviceState">
-    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <rdfs:subClassOf>
+      <rdf:Description rdf:about="http://www.w3.org/2002/07/owl#Thing">
+        <spin:rule>
+          <sp:Construct>
+            <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >cls-hv1</rdfs:comment>
+            <sp:templates rdf:parseType="Collection">
+              <rdf:Description>
+                <sp:object>
+                  <rdf:Description rdf:nodeID="A0">
+                    <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                    >y</sp:varName>
+                  </rdf:Description>
+                </sp:object>
+                <sp:predicate>
+                  <rdf:Description rdf:nodeID="A1">
+                    <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                    >p</sp:varName>
+                  </rdf:Description>
+                </sp:predicate>
+                <sp:subject>
+                  <rdf:Description rdf:nodeID="A2">
+                    <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                    >u</sp:varName>
+                  </rdf:Description>
+                </sp:subject>
+              </rdf:Description>
+            </sp:templates>
+            <sp:where rdf:parseType="Collection">
+              <rdf:Description>
+                <sp:object rdf:nodeID="A0"/>
+                <sp:predicate rdf:resource="http://www.w3.org/2002/07/owl#hasValue"/>
+                <sp:subject>
+                  <rdf:Description rdf:nodeID="A3">
+                    <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                    >x</sp:varName>
+                  </rdf:Description>
+                </sp:subject>
+              </rdf:Description>
+              <rdf:Description>
+                <sp:object rdf:nodeID="A1"/>
+                <sp:predicate rdf:resource="http://www.w3.org/2002/07/owl#onProperty"/>
+                <sp:subject rdf:nodeID="A3"/>
+              </rdf:Description>
+              <rdf:Description>
+                <sp:object rdf:nodeID="A3"/>
+                <sp:predicate rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+                <sp:subject rdf:nodeID="A2"/>
+              </rdf:Description>
+            </sp:where>
+          </sp:Construct>
+        </spin:rule>
+      </rdf:Description>
+    </rdfs:subClassOf>
   </owl:Class>
   <owl:Class rdf:ID="SmartObject">
     <spin:rule>
@@ -44,7 +97,7 @@
         <sp:templates rdf:parseType="Collection">
           <rdf:Description>
             <sp:object>
-              <rdf:Description rdf:nodeID="A0">
+              <rdf:Description rdf:nodeID="A4">
                 <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
                 >lastEvent</sp:varName>
               </rdf:Description>
@@ -62,7 +115,7 @@
                 <sp:orderBy rdf:parseType="Collection">
                   <sp:Desc>
                     <sp:expression>
-                      <rdf:Description rdf:nodeID="A1">
+                      <rdf:Description rdf:nodeID="A5">
                         <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
                         >last</sp:varName>
                       </rdf:Description>
@@ -72,7 +125,7 @@
                 <sp:limit rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
                 >1</sp:limit>
                 <sp:resultVariables rdf:parseType="Collection">
-                  <rdf:Description rdf:nodeID="A0"/>
+                  <rdf:Description rdf:nodeID="A4"/>
                 </sp:resultVariables>
                 <sp:where rdf:parseType="Collection">
                   <rdf:Description>
@@ -80,7 +133,7 @@
                       <owl:Class rdf:about="#InteractionEvent"/>
                     </sp:object>
                     <sp:predicate rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
-                    <sp:subject rdf:nodeID="A0"/>
+                    <sp:subject rdf:nodeID="A4"/>
                   </rdf:Description>
                   <rdf:Description>
                     <sp:object rdf:resource="#SmartObject"/>
@@ -92,14 +145,14 @@
                     <sp:predicate>
                       <owl:ObjectProperty rdf:ID="generatedBy"/>
                     </sp:predicate>
-                    <sp:subject rdf:nodeID="A0"/>
+                    <sp:subject rdf:nodeID="A4"/>
                   </rdf:Description>
                   <rdf:Description>
-                    <sp:object rdf:nodeID="A1"/>
+                    <sp:object rdf:nodeID="A5"/>
                     <sp:predicate>
                       <owl:DatatypeProperty rdf:ID="inXSDDateTime"/>
                     </sp:predicate>
-                    <sp:subject rdf:nodeID="A0"/>
+                    <sp:subject rdf:nodeID="A4"/>
                   </rdf:Description>
                 </sp:where>
               </sp:Select>
@@ -116,6 +169,19 @@
     </rdfs:subClassOf>
   </owl:Class>
   <owl:Class rdf:ID="SmartObject_inOffState">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="#SmartObject"/>
+          <owl:Restriction>
+            <owl:someValuesFrom>
+              <owl:Class rdf:ID="SwitchOffEvent"/>
+            </owl:someValuesFrom>
+            <owl:onProperty rdf:resource="#hasLastEvent"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
     <owl:equivalentClass>
       <owl:Restriction>
         <owl:hasValue>
@@ -142,19 +208,6 @@
           <owl:ObjectProperty rdf:ID="isInState"/>
         </owl:onProperty>
       </owl:Restriction>
-    </owl:equivalentClass>
-    <owl:equivalentClass>
-      <owl:Class>
-        <owl:intersectionOf rdf:parseType="Collection">
-          <owl:Class rdf:about="#SmartObject"/>
-          <owl:Restriction>
-            <owl:someValuesFrom>
-              <owl:Class rdf:ID="SwitchOffEvent"/>
-            </owl:someValuesFrom>
-            <owl:onProperty rdf:resource="#hasLastEvent"/>
-          </owl:Restriction>
-        </owl:intersectionOf>
-      </owl:Class>
     </owl:equivalentClass>
     <rdfs:subClassOf rdf:resource="#SmartObject"/>
   </owl:Class>
@@ -202,6 +255,7 @@
     <rdfs:range rdf:resource="#DeviceState"/>
     <rdfs:domain rdf:resource="#StateTransition"/>
   </rdf:Property>
+  <owl:DatatypeProperty rdf:ID="isInStateTest"/>
   <events:SwitchOffEvent rdf:ID="switchUpEvent1">
     <events:generatedBy>
       <events:SmartObject rdf:ID="lamp1">
