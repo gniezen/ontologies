@@ -1,36 +1,217 @@
 <?xml version="1.0"?>
 <rdf:RDF
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    xmlns="http://sofia.gotdns.com/ontologies/InteractionEvents.owl#"
+    xmlns:spin="http://spinrdf.org/spin#"
+    xmlns:sp="http://spinrdf.org/sp#"
+    xmlns:events="http://sofia.gotdns.com/ontologies/InteractionEvents.owl#"
     xmlns:owl="http://www.w3.org/2002/07/owl#"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:spl="http://spinrdf.org/spl#"
   xml:base="http://sofia.gotdns.com/ontologies/InteractionEvents.owl">
   <owl:Ontology rdf:about="">
+    <owl:imports rdf:resource="http://spinrdf.org/spin"/>
     <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >Created with TopBraid Composer</owl:versionInfo>
+    <spin:imports rdf:resource="http://topbraid.org/spin/owlrl-all"/>
   </owl:Ontology>
-  <owl:Class rdf:ID="switchOnOffEvent">
-    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <owl:Class rdf:ID="OffState">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="DeviceState"/>
+    </rdfs:subClassOf>
   </owl:Class>
   <owl:Class rdf:ID="QuantifyEvent">
-    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="InteractionEvent"/>
+    </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:ID="SelectEvent">
-    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <owl:Class rdf:ID="OnState">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#DeviceState"/>
+    </rdfs:subClassOf>
   </owl:Class>
   <owl:Class rdf:ID="NavigateEvent">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#InteractionEvent"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#DeviceState">
     <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   </owl:Class>
-  <owl:Class rdf:ID="AdjustLevelEvent">
-    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
-  </owl:Class>
-  <owl:Class rdf:ID="StartStopEvent">
+  <owl:Class rdf:ID="SmartObject">
+    <spin:rule>
+      <sp:Construct>
+        <sp:templates rdf:parseType="Collection">
+          <rdf:Description>
+            <sp:object>
+              <rdf:Description rdf:nodeID="A0">
+                <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                >lastEvent</sp:varName>
+              </rdf:Description>
+            </sp:object>
+            <sp:predicate>
+              <owl:ObjectProperty rdf:ID="hasLastEvent"/>
+            </sp:predicate>
+            <sp:subject rdf:resource="http://spinrdf.org/spin#_this"/>
+          </rdf:Description>
+        </sp:templates>
+        <sp:where rdf:parseType="Collection">
+          <sp:SubQuery>
+            <sp:query>
+              <sp:Select>
+                <sp:orderBy rdf:parseType="Collection">
+                  <sp:Desc>
+                    <sp:expression>
+                      <rdf:Description rdf:nodeID="A1">
+                        <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                        >last</sp:varName>
+                      </rdf:Description>
+                    </sp:expression>
+                  </sp:Desc>
+                </sp:orderBy>
+                <sp:limit rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
+                >1</sp:limit>
+                <sp:resultVariables rdf:parseType="Collection">
+                  <rdf:Description rdf:nodeID="A0"/>
+                </sp:resultVariables>
+                <sp:where rdf:parseType="Collection">
+                  <rdf:Description>
+                    <sp:object>
+                      <owl:Class rdf:about="#InteractionEvent"/>
+                    </sp:object>
+                    <sp:predicate rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+                    <sp:subject rdf:nodeID="A0"/>
+                  </rdf:Description>
+                  <rdf:Description>
+                    <sp:object rdf:resource="#SmartObject"/>
+                    <sp:predicate rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+                    <sp:subject rdf:resource="http://spinrdf.org/spin#_arg1"/>
+                  </rdf:Description>
+                  <rdf:Description>
+                    <sp:object rdf:resource="http://spinrdf.org/spin#_arg1"/>
+                    <sp:predicate>
+                      <owl:ObjectProperty rdf:ID="generatedBy"/>
+                    </sp:predicate>
+                    <sp:subject rdf:nodeID="A0"/>
+                  </rdf:Description>
+                  <rdf:Description>
+                    <sp:object rdf:nodeID="A1"/>
+                    <sp:predicate>
+                      <owl:DatatypeProperty rdf:ID="inXSDDateTime"/>
+                    </sp:predicate>
+                    <sp:subject rdf:nodeID="A0"/>
+                  </rdf:Description>
+                </sp:where>
+              </sp:Select>
+            </sp:query>
+          </sp:SubQuery>
+        </sp:where>
+      </sp:Construct>
+    </spin:rule>
     <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   </owl:Class>
   <owl:Class rdf:ID="VolumeEvent">
-    <rdfs:subClassOf rdf:resource="#AdjustLevelEvent"/>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="AdjustLevelEvent"/>
+    </rdfs:subClassOf>
   </owl:Class>
+  <owl:Class rdf:ID="SmartObject_inOffState">
+    <owl:equivalentClass>
+      <owl:Restriction>
+        <owl:hasValue>
+          <events:OffState rdf:ID="Off">
+            <events:hasStateTransition>
+              <events:StateTransition rdf:ID="stateTransition2">
+                <events:nextState>
+                  <events:OnState rdf:ID="On">
+                    <events:hasStateTransition>
+                      <events:StateTransition rdf:ID="stateTransition1">
+                        <events:nextState rdf:resource="#Off"/>
+                      </events:StateTransition>
+                    </events:hasStateTransition>
+                  </events:OnState>
+                </events:nextState>
+                <events:onEvent>
+                  <events:SwitchOnEvent rdf:ID="switchDownEvent1"/>
+                </events:onEvent>
+              </events:StateTransition>
+            </events:hasStateTransition>
+          </events:OffState>
+        </owl:hasValue>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="isInState"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </owl:equivalentClass>
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="#SmartObject"/>
+          <owl:Restriction>
+            <owl:someValuesFrom>
+              <owl:Class rdf:ID="SwitchOffEvent"/>
+            </owl:someValuesFrom>
+            <owl:onProperty rdf:resource="#hasLastEvent"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+    <rdfs:subClassOf rdf:resource="#SmartObject"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OnOffEvent">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#InteractionEvent"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#SwitchOffEvent">
+    <rdfs:subClassOf rdf:resource="#OnOffEvent"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SelectEvent">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#InteractionEvent"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="StateTransition">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  </owl:Class>
+  <owl:Class rdf:about="#AdjustLevelEvent">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#InteractionEvent"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SwitchOnEvent">
+    <rdfs:subClassOf rdf:resource="#OnOffEvent"/>
+  </owl:Class>
+  <owl:Class rdf:ID="StartStopEvent">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#InteractionEvent"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#InteractionEvent">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  </owl:Class>
+  <owl:ObjectProperty rdf:ID="hasState"/>
+  <rdf:Property rdf:ID="onEvent">
+    <rdfs:range rdf:resource="#InteractionEvent"/>
+    <owl:hasValue>
+      <events:SwitchOffEvent rdf:ID="switchOffEvent"/>
+    </owl:hasValue>
+  </rdf:Property>
+  <rdf:Property rdf:ID="hasStateTransition"/>
+  <rdf:Property rdf:ID="nextState">
+    <rdfs:range rdf:resource="#DeviceState"/>
+    <rdfs:domain rdf:resource="#StateTransition"/>
+  </rdf:Property>
+  <events:SwitchOffEvent rdf:ID="switchUpEvent1">
+    <events:generatedBy>
+      <events:SmartObject rdf:ID="lamp1">
+        <events:hasState rdf:resource="#Off"/>
+        <events:hasState rdf:resource="#On"/>
+      </events:SmartObject>
+    </events:generatedBy>
+    <events:inXSDDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >2011-09-06T17:18:44</events:inXSDDateTime>
+  </events:SwitchOffEvent>
 </rdf:RDF>
 
 <!-- Created with TopBraid -->
