@@ -1,10 +1,14 @@
 <?xml version="1.0"?>
 <rdf:RDF
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:afn="http://jena.hpl.hp.com/ARQ/function#"
     xmlns:spin="http://spinrdf.org/spin#"
+    xmlns:fn="http://www.w3.org/2005/xpath-functions#"
     xmlns:sp="http://spinrdf.org/sp#"
     xmlns:events="http://sofia.gotdns.com/ontologies/InteractionEvents.owl#"
+    xmlns:smf="http://topbraid.org/sparqlmotionfunctions#"
     xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:spif="http://spinrdf.org/spif#"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
     xmlns:spl="http://spinrdf.org/spl#"
@@ -29,6 +33,53 @@
     <rdfs:subClassOf>
       <owl:Class rdf:about="#DeviceState"/>
     </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SmartObject_inOnState">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="SmartObject"/>
+    </rdfs:subClassOf>
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="#SmartObject"/>
+          <owl:Restriction>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:ID="hasLastEvent"/>
+            </owl:onProperty>
+            <owl:someValuesFrom>
+              <owl:Class rdf:ID="SwitchOnEvent"/>
+            </owl:someValuesFrom>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+    <owl:equivalentClass>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="isInState"/>
+        </owl:onProperty>
+        <owl:hasValue>
+          <events:OnState rdf:ID="On">
+            <events:hasStateTransition>
+              <events:StateTransition rdf:ID="stateTransition1">
+                <events:nextState>
+                  <events:OffState rdf:ID="Off">
+                    <events:hasStateTransition>
+                      <events:StateTransition rdf:ID="stateTransition2">
+                        <events:nextState rdf:resource="#On"/>
+                        <events:onEvent>
+                          <events:SwitchOnEvent rdf:ID="switchDownEvent1"/>
+                        </events:onEvent>
+                      </events:StateTransition>
+                    </events:hasStateTransition>
+                  </events:OffState>
+                </events:nextState>
+              </events:StateTransition>
+            </events:hasStateTransition>
+          </events:OnState>
+        </owl:hasValue>
+      </owl:Restriction>
+    </owl:equivalentClass>
   </owl:Class>
   <owl:Class rdf:ID="NavigateEvent">
     <rdfs:subClassOf>
@@ -91,7 +142,7 @@
       </rdf:Description>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:ID="SmartObject">
+  <owl:Class rdf:about="#SmartObject">
     <spin:rule>
       <sp:Construct>
         <sp:templates rdf:parseType="Collection">
@@ -102,10 +153,13 @@
                 >lastEvent</sp:varName>
               </rdf:Description>
             </sp:object>
-            <sp:predicate>
-              <owl:ObjectProperty rdf:ID="hasLastEvent"/>
-            </sp:predicate>
-            <sp:subject rdf:resource="http://spinrdf.org/spin#_this"/>
+            <sp:predicate rdf:resource="#hasLastEvent"/>
+            <sp:subject>
+              <rdf:Description rdf:nodeID="A5">
+                <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                >device</sp:varName>
+              </rdf:Description>
+            </sp:subject>
           </rdf:Description>
         </sp:templates>
         <sp:where rdf:parseType="Collection">
@@ -115,7 +169,7 @@
                 <sp:orderBy rdf:parseType="Collection">
                   <sp:Desc>
                     <sp:expression>
-                      <rdf:Description rdf:nodeID="A5">
+                      <rdf:Description rdf:nodeID="A6">
                         <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
                         >last</sp:varName>
                       </rdf:Description>
@@ -125,6 +179,7 @@
                 <sp:limit rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
                 >1</sp:limit>
                 <sp:resultVariables rdf:parseType="Collection">
+                  <rdf:Description rdf:nodeID="A5"/>
                   <rdf:Description rdf:nodeID="A4"/>
                 </sp:resultVariables>
                 <sp:where rdf:parseType="Collection">
@@ -136,19 +191,14 @@
                     <sp:subject rdf:nodeID="A4"/>
                   </rdf:Description>
                   <rdf:Description>
-                    <sp:object rdf:resource="#SmartObject"/>
-                    <sp:predicate rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
-                    <sp:subject rdf:resource="http://spinrdf.org/spin#_arg1"/>
-                  </rdf:Description>
-                  <rdf:Description>
-                    <sp:object rdf:resource="http://spinrdf.org/spin#_arg1"/>
+                    <sp:object rdf:nodeID="A5"/>
                     <sp:predicate>
                       <owl:ObjectProperty rdf:ID="generatedBy"/>
                     </sp:predicate>
                     <sp:subject rdf:nodeID="A4"/>
                   </rdf:Description>
                   <rdf:Description>
-                    <sp:object rdf:nodeID="A5"/>
+                    <sp:object rdf:nodeID="A6"/>
                     <sp:predicate>
                       <owl:DatatypeProperty rdf:ID="inXSDDateTime"/>
                     </sp:predicate>
@@ -168,6 +218,11 @@
       <owl:Class rdf:ID="AdjustLevelEvent"/>
     </rdfs:subClassOf>
   </owl:Class>
+  <owl:Class rdf:ID="OnOffEvent">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#InteractionEvent"/>
+    </rdfs:subClassOf>
+  </owl:Class>
   <owl:Class rdf:ID="SmartObject_inOffState">
     <owl:equivalentClass>
       <owl:Class>
@@ -184,37 +239,11 @@
     </owl:equivalentClass>
     <owl:equivalentClass>
       <owl:Restriction>
-        <owl:hasValue>
-          <events:OffState rdf:ID="Off">
-            <events:hasStateTransition>
-              <events:StateTransition rdf:ID="stateTransition2">
-                <events:nextState>
-                  <events:OnState rdf:ID="On">
-                    <events:hasStateTransition>
-                      <events:StateTransition rdf:ID="stateTransition1">
-                        <events:nextState rdf:resource="#Off"/>
-                      </events:StateTransition>
-                    </events:hasStateTransition>
-                  </events:OnState>
-                </events:nextState>
-                <events:onEvent>
-                  <events:SwitchOnEvent rdf:ID="switchDownEvent1"/>
-                </events:onEvent>
-              </events:StateTransition>
-            </events:hasStateTransition>
-          </events:OffState>
-        </owl:hasValue>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:ID="isInState"/>
-        </owl:onProperty>
+        <owl:hasValue rdf:resource="#Off"/>
+        <owl:onProperty rdf:resource="#isInState"/>
       </owl:Restriction>
     </owl:equivalentClass>
     <rdfs:subClassOf rdf:resource="#SmartObject"/>
-  </owl:Class>
-  <owl:Class rdf:ID="OnOffEvent">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="#InteractionEvent"/>
-    </rdfs:subClassOf>
   </owl:Class>
   <owl:Class rdf:about="#SwitchOffEvent">
     <rdfs:subClassOf rdf:resource="#OnOffEvent"/>
@@ -232,7 +261,7 @@
       <owl:Class rdf:about="#InteractionEvent"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:ID="SwitchOnEvent">
+  <owl:Class rdf:about="#SwitchOnEvent">
     <rdfs:subClassOf rdf:resource="#OnOffEvent"/>
   </owl:Class>
   <owl:Class rdf:ID="StartStopEvent">
@@ -256,15 +285,32 @@
     <rdfs:domain rdf:resource="#StateTransition"/>
   </rdf:Property>
   <owl:DatatypeProperty rdf:ID="isInStateTest"/>
-  <events:SwitchOffEvent rdf:ID="switchUpEvent1">
+  <events:SwitchOnEvent rdf:ID="event-a2356c34-29e0-11b2-80a6-db6e9085a78f">
+    <events:inXSDDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+    >2012-01-04T09:45:02.653+01:00</events:inXSDDateTime>
     <events:generatedBy>
       <events:SmartObject rdf:ID="lamp1">
         <events:hasState rdf:resource="#Off"/>
         <events:hasState rdf:resource="#On"/>
       </events:SmartObject>
     </events:generatedBy>
+  </events:SwitchOnEvent>
+  <events:SwitchOffEvent rdf:ID="switchUpEvent1">
+    <events:generatedBy rdf:resource="#lamp1"/>
     <events:inXSDDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >2011-09-06T17:18:44</events:inXSDDateTime>
+  </events:SwitchOffEvent>
+  <events:SwitchOffEvent rdf:ID="event-a2356c33-29e0-11b2-80a6-db6e9085a78f">
+    <events:inXSDDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+    >2012-01-04T09:39:00.577+01:00</events:inXSDDateTime>
+    <events:generatedBy rdf:resource="#lamp1"/>
+  </events:SwitchOffEvent>
+  <events:SwitchOffEvent rdf:ID="event-a5e9ded8-29e0-11b2-806a-edb1e0cc9401">
+    <events:inXSDDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+    >2012-01-04T11:22:20.524+01:00</events:inXSDDateTime>
+    <events:generatedBy>
+      <events:SmartObject rdf:ID="lamp2"/>
+    </events:generatedBy>
   </events:SwitchOffEvent>
 </rdf:RDF>
 
