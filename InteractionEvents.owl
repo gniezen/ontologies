@@ -19,6 +19,11 @@
     >Created with TopBraid Composer</owl:versionInfo>
     <spin:imports rdf:resource="http://topbraid.org/spin/owlrl-all"/>
   </owl:Ontology>
+  <owl:Class rdf:ID="Source">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="SmartObject"/>
+    </rdfs:subClassOf>
+  </owl:Class>
   <owl:Class rdf:ID="OffState">
     <rdfs:subClassOf>
       <owl:Class rdf:ID="DeviceState"/>
@@ -34,9 +39,14 @@
       <owl:Class rdf:about="#DeviceState"/>
     </rdfs:subClassOf>
   </owl:Class>
+  <owl:Class rdf:ID="NavigateEvent">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#InteractionEvent"/>
+    </rdfs:subClassOf>
+  </owl:Class>
   <owl:Class rdf:ID="SmartObject_inOnState">
     <rdfs:subClassOf>
-      <owl:Class rdf:ID="SmartObject"/>
+      <owl:Class rdf:about="#SmartObject"/>
     </rdfs:subClassOf>
     <owl:equivalentClass>
       <owl:Class>
@@ -80,11 +90,6 @@
         </owl:hasValue>
       </owl:Restriction>
     </owl:equivalentClass>
-  </owl:Class>
-  <owl:Class rdf:ID="NavigateEvent">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="#InteractionEvent"/>
-    </rdfs:subClassOf>
   </owl:Class>
   <owl:Class rdf:about="#DeviceState">
     <rdfs:subClassOf>
@@ -154,12 +159,7 @@
               </rdf:Description>
             </sp:object>
             <sp:predicate rdf:resource="#hasLastEvent"/>
-            <sp:subject>
-              <rdf:Description rdf:nodeID="A5">
-                <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-                >device</sp:varName>
-              </rdf:Description>
-            </sp:subject>
+            <sp:subject rdf:resource="http://spinrdf.org/spin#_this"/>
           </rdf:Description>
         </sp:templates>
         <sp:where rdf:parseType="Collection">
@@ -169,7 +169,7 @@
                 <sp:orderBy rdf:parseType="Collection">
                   <sp:Desc>
                     <sp:expression>
-                      <rdf:Description rdf:nodeID="A6">
+                      <rdf:Description rdf:nodeID="A5">
                         <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
                         >last</sp:varName>
                       </rdf:Description>
@@ -179,7 +179,6 @@
                 <sp:limit rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
                 >1</sp:limit>
                 <sp:resultVariables rdf:parseType="Collection">
-                  <rdf:Description rdf:nodeID="A5"/>
                   <rdf:Description rdf:nodeID="A4"/>
                 </sp:resultVariables>
                 <sp:where rdf:parseType="Collection">
@@ -191,14 +190,14 @@
                     <sp:subject rdf:nodeID="A4"/>
                   </rdf:Description>
                   <rdf:Description>
-                    <sp:object rdf:nodeID="A5"/>
+                    <sp:object rdf:resource="http://spinrdf.org/spin#_this"/>
                     <sp:predicate>
                       <owl:ObjectProperty rdf:ID="generatedBy"/>
                     </sp:predicate>
                     <sp:subject rdf:nodeID="A4"/>
                   </rdf:Description>
                   <rdf:Description>
-                    <sp:object rdf:nodeID="A6"/>
+                    <sp:object rdf:nodeID="A5"/>
                     <sp:predicate>
                       <owl:DatatypeProperty rdf:ID="inXSDDateTime"/>
                     </sp:predicate>
@@ -248,6 +247,9 @@
   <owl:Class rdf:about="#SwitchOffEvent">
     <rdfs:subClassOf rdf:resource="#OnOffEvent"/>
   </owl:Class>
+  <owl:Class rdf:ID="Sink">
+    <rdfs:subClassOf rdf:resource="#SmartObject"/>
+  </owl:Class>
   <owl:Class rdf:ID="SelectEvent">
     <rdfs:subClassOf>
       <owl:Class rdf:about="#InteractionEvent"/>
@@ -280,6 +282,10 @@
     </owl:hasValue>
   </rdf:Property>
   <rdf:Property rdf:ID="hasStateTransition"/>
+  <rdf:Property rdf:ID="connectedTo">
+    <rdfs:range rdf:resource="#Sink"/>
+    <rdfs:domain rdf:resource="#Source"/>
+  </rdf:Property>
   <rdf:Property rdf:ID="nextState">
     <rdfs:range rdf:resource="#DeviceState"/>
     <rdfs:domain rdf:resource="#StateTransition"/>
@@ -309,7 +315,9 @@
     <events:inXSDDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
     >2012-01-04T11:22:20.524+01:00</events:inXSDDateTime>
     <events:generatedBy>
-      <events:SmartObject rdf:ID="lamp2"/>
+      <events:SmartObject rdf:ID="lamp2">
+        <events:connectedTo rdf:resource="#lamp1"/>
+      </events:SmartObject>
     </events:generatedBy>
   </events:SwitchOffEvent>
 </rdf:RDF>
