@@ -1,4 +1,4 @@
-# Saved by TopBraid on Mon Jan 23 15:20:49 CET 2012
+# Saved by TopBraid on Wed Feb 01 12:04:06 CET 2012
 # baseURI: null
 
 @prefix composite:  <http://www.topbraid.org/2007/05/composite.owl#> .
@@ -13,6 +13,4 @@
       composite:child
               [ rdf:type <http://spinrdf.org/spin#TopSPIN> ;
                 composite:index "0"^^xsd:int
-              ] ;
-      inference:completeMode
-              "true"^^xsd:boolean .
+              ] .
