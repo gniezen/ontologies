@@ -23,34 +23,115 @@
     <owl:imports rdf:resource="http://sofia.gotdns.com/ontologies/SemanticInteraction.owl"/>
     <owl:imports rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl"/>
   </owl:Ontology>
-  <owl:Class rdf:ID="OnState">
-    <rdfs:subClassOf>
-      <owl:Class rdf:ID="DeviceState"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="#DeviceState">
+  <owl:Class rdf:ID="ControlPath">
     <rdfs:subClassOf>
       <rdf:Description rdf:about="http://www.w3.org/2002/07/owl#Thing">
         <spin:rule>
           <sp:Construct>
+            <sp:templates rdf:parseType="Collection">
+              <rdf:Description>
+                <sp:object rdf:resource="#ControlPath"/>
+                <sp:predicate rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+                <sp:subject>
+                  <rdf:Description rdf:nodeID="A0">
+                    <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                    >cp</sp:varName>
+                  </rdf:Description>
+                </sp:subject>
+              </rdf:Description>
+              <rdf:Description>
+                <sp:object rdf:nodeID="A0"/>
+                <sp:predicate>
+                  <owl:ObjectProperty rdf:ID="hasControlPath"/>
+                </sp:predicate>
+                <sp:subject>
+                  <rdf:Description rdf:nodeID="A1">
+                    <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                    >x3</sp:varName>
+                  </rdf:Description>
+                </sp:subject>
+              </rdf:Description>
+              <rdf:Description>
+                <sp:object>
+                  <rdf:Description rdf:nodeID="A2">
+                    <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                    >x2</sp:varName>
+                  </rdf:Description>
+                </sp:object>
+                <sp:predicate>
+                  <owl:ObjectProperty rdf:ID="controlSource"/>
+                </sp:predicate>
+                <sp:subject rdf:nodeID="A0"/>
+              </rdf:Description>
+              <rdf:Description>
+                <sp:object rdf:resource="http://spinrdf.org/spin#_this"/>
+                <sp:predicate>
+                  <owl:ObjectProperty rdf:ID="controlOriginator"/>
+                </sp:predicate>
+                <sp:subject rdf:nodeID="A0"/>
+              </rdf:Description>
+            </sp:templates>
+            <sp:where rdf:parseType="Collection">
+              <rdf:Description>
+                <sp:object rdf:nodeID="A2"/>
+                <sp:predicate>
+                  <owl:ObjectProperty rdf:ID="canControl"/>
+                </sp:predicate>
+                <sp:subject rdf:resource="http://spinrdf.org/spin#_this"/>
+              </rdf:Description>
+              <rdf:Description>
+                <sp:object rdf:nodeID="A1"/>
+                <sp:predicate>
+                  <owl:ObjectProperty rdf:about="#canControl"/>
+                </sp:predicate>
+                <sp:subject rdf:nodeID="A2"/>
+              </rdf:Description>
+              <sp:Bind>
+                <sp:expression>
+                  <sp:iri>
+                    <sp:arg1>
+                      <fn:concat>
+                        <sp:arg4>
+                          <afn:localname>
+                            <sp:arg1 rdf:nodeID="A1"/>
+                          </afn:localname>
+                        </sp:arg4>
+                        <sp:arg3>_to_</sp:arg3>
+                        <sp:arg2>
+                          <afn:localname>
+                            <sp:arg1 rdf:resource="http://spinrdf.org/spin#_this"/>
+                          </afn:localname>
+                        </sp:arg2>
+                        <sp:arg1>http://sofia.gotdns.com/ontologies/InteractionEvents.owl#controlPath_</sp:arg1>
+                      </fn:concat>
+                    </sp:arg1>
+                  </sp:iri>
+                </sp:expression>
+                <sp:variable rdf:nodeID="A0"/>
+              </sp:Bind>
+            </sp:where>
+          </sp:Construct>
+        </spin:rule>
+        <spin:rule>
+          <sp:Construct>
             <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-            >cls-hv1</rdfs:comment>
+            >cls-hv1 (this fix is here because actual cls-hv1 is buggy in TBC 3.5)</rdfs:comment>
             <sp:templates rdf:parseType="Collection">
               <rdf:Description>
                 <sp:object>
-                  <rdf:Description rdf:nodeID="A0">
+                  <rdf:Description rdf:nodeID="A3">
                     <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
                     >y</sp:varName>
                   </rdf:Description>
                 </sp:object>
                 <sp:predicate>
-                  <rdf:Description rdf:nodeID="A1">
+                  <rdf:Description rdf:nodeID="A4">
                     <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
                     >p</sp:varName>
                   </rdf:Description>
                 </sp:predicate>
                 <sp:subject>
-                  <rdf:Description rdf:nodeID="A2">
+                  <rdf:Description rdf:nodeID="A5">
                     <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
                     >u</sp:varName>
                   </rdf:Description>
@@ -59,30 +140,38 @@
             </sp:templates>
             <sp:where rdf:parseType="Collection">
               <rdf:Description>
-                <sp:object rdf:nodeID="A0"/>
+                <sp:object rdf:nodeID="A3"/>
                 <sp:predicate rdf:resource="http://www.w3.org/2002/07/owl#hasValue"/>
                 <sp:subject>
-                  <rdf:Description rdf:nodeID="A3">
+                  <rdf:Description rdf:nodeID="A6">
                     <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
                     >x</sp:varName>
                   </rdf:Description>
                 </sp:subject>
               </rdf:Description>
               <rdf:Description>
-                <sp:object rdf:nodeID="A1"/>
+                <sp:object rdf:nodeID="A4"/>
                 <sp:predicate rdf:resource="http://www.w3.org/2002/07/owl#onProperty"/>
-                <sp:subject rdf:nodeID="A3"/>
+                <sp:subject rdf:nodeID="A6"/>
               </rdf:Description>
               <rdf:Description>
-                <sp:object rdf:nodeID="A3"/>
+                <sp:object rdf:nodeID="A6"/>
                 <sp:predicate rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
-                <sp:subject rdf:nodeID="A2"/>
+                <sp:subject rdf:nodeID="A5"/>
               </rdf:Description>
             </sp:where>
           </sp:Construct>
         </spin:rule>
       </rdf:Description>
     </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="OnState">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="DeviceState"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#DeviceState">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   </owl:Class>
   <owl:Class rdf:ID="VolumeEvent">
     <rdfs:subClassOf>
@@ -268,7 +357,7 @@
         <sp:templates rdf:parseType="Collection">
           <rdf:Description>
             <sp:object>
-              <rdf:Description rdf:nodeID="A4">
+              <rdf:Description rdf:nodeID="A7">
                 <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
                 >lastEvent</sp:varName>
               </rdf:Description>
@@ -284,7 +373,7 @@
                 <sp:arg1 rdf:resource="http://spinrdf.org/spin#_this"/>
               </events:getMaxDateRsc>
             </sp:expression>
-            <sp:variable rdf:nodeID="A4"/>
+            <sp:variable rdf:nodeID="A7"/>
           </sp:Bind>
         </sp:where>
       </sp:Construct>
@@ -341,6 +430,22 @@
     <rdfs:range rdf:resource="#InteractionEvent"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="hasState"/>
+  <owl:ObjectProperty rdf:ID="isFunctionalityofSource">
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:ID="functionalitySource"/>
+    </owl:inverseOf>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#canControl">
+    <owl:propertyChainAxiom rdf:parseType="Collection">
+      <owl:ObjectProperty rdf:about="#functionalitySource"/>
+      <owl:ObjectProperty rdf:ID="isFunctionalityOfSink"/>
+    </owl:propertyChainAxiom>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#isFunctionalityOfSink">
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:ID="functionalitySink"/>
+    </owl:inverseOf>
+  </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="generatedBy">
     <rdfs:range rdf:resource="#SmartObject"/>
   </owl:ObjectProperty>
@@ -364,12 +469,8 @@
   </rdf:Property>
   <owl:DatatypeProperty rdf:ID="inXSDDateTime"/>
   <events:AlarmSetEvent rdf:ID="event-43495d54-29e3-11b2-807e-ac78eefc1f82">
-    <events:inXSDDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
-    >2012-01-17T12:00:28.228+01:00</events:inXSDDateTime>
     <events:generatedBy>
-      <events:SmartObject rdf:ID="lamp1">
-        <events:hasState rdf:resource="#Off"/>
-        <events:hasState rdf:resource="#On"/>
+      <events:SmartObject rdf:ID="testlamp1">
         <semint:hasInteractionPrimitive>
           <semint:InteractionPrimitive rdf:ID="dimmableLight1">
             <semint:hasRangeMeasure rdf:resource="http://sofia.gotdns.com/ontologies/SemanticInteraction.owl#Triple"/>
@@ -377,25 +478,37 @@
             >50</semint:dataValue>
           </semint:InteractionPrimitive>
         </semint:hasInteractionPrimitive>
+        <events:hasState rdf:resource="#On"/>
+        <events:hasState rdf:resource="#Off"/>
       </events:SmartObject>
     </events:generatedBy>
+    <events:inXSDDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+    >2012-01-17T12:00:28.228+01:00</events:inXSDDateTime>
     <events:dataValue rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
     >2012-01-18T08:00:00+01:30</events:dataValue>
   </events:AlarmSetEvent>
   <events:SwitchOnEvent rdf:ID="event-a2356c34-29e0-11b2-80a6-db6e9085a78f">
+    <events:generatedBy rdf:resource="#testlamp1"/>
     <events:inXSDDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
     >2012-01-04T09:45:02.653+01:00</events:inXSDDateTime>
-    <events:generatedBy rdf:resource="#lamp1"/>
   </events:SwitchOnEvent>
   <events:SwitchOffEvent rdf:ID="switchUpEvent1">
-    <events:generatedBy rdf:resource="#lamp1"/>
+    <events:generatedBy rdf:resource="#testlamp1"/>
     <events:inXSDDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >2011-09-06T17:18:44</events:inXSDDateTime>
   </events:SwitchOffEvent>
+  <events:SmartObject rdf:ID="wakeup1">
+    <events:functionalitySource>
+      <events:Functionality rdf:ID="AdjustLevel"/>
+    </events:functionalitySource>
+    <events:functionalitySink>
+      <events:Functionality rdf:ID="Alarm"/>
+    </events:functionalitySink>
+  </events:SmartObject>
   <events:SetEvent rdf:ID="event-43495d53-29e3-11b2-807e-ac78eefc1f82">
+    <events:generatedBy rdf:resource="#testlamp1"/>
     <events:dataValue rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
     >2012-01-18T07:00:00+0100</events:dataValue>
-    <events:generatedBy rdf:resource="#lamp1"/>
     <events:inXSDDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
     >2012-01-17T11:25:55.972+01:00</events:inXSDDateTime>
   </events:SetEvent>
@@ -403,67 +516,76 @@
     <owl:equivalentClass rdf:resource="#InteractionEvent"/>
   </rdf:Description>
   <events:SwitchOffEvent rdf:ID="event-a2356c33-29e0-11b2-80a6-db6e9085a78f">
+    <events:generatedBy rdf:resource="#testlamp1"/>
     <events:inXSDDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
     >2012-01-04T09:39:00.577+01:00</events:inXSDDateTime>
-    <events:generatedBy rdf:resource="#lamp1"/>
   </events:SwitchOffEvent>
   <rdf:Description rdf:ID="event-43495d51-29e3-11b2-807e-ac78eefc1f82">
-    <events:inXSDDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
-    >2012-01-17T11:22:06.887+01:00</events:inXSDDateTime>
+    <events:generatedBy rdf:resource="#testlamp1"/>
     <events:dataValue rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
     >2012-01-18T07:00:00+0100</events:dataValue>
-    <events:generatedBy rdf:resource="#lamp1"/>
+    <events:inXSDDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+    >2012-01-17T11:22:06.887+01:00</events:inXSDDateTime>
   </rdf:Description>
   <events:SwitchUpEvent rdf:ID="event-a5e9ded8-29e0-11b2-806a-edb1e0cc9401">
     <events:generatedBy>
-      <rdf:Description rdf:ID="switch1">
-        <events:connectedTo rdf:resource="#lamp1"/>
+      <rdf:Description rdf:ID="testswitch1">
+        <events:connectedTo rdf:resource="#testlamp1"/>
       </rdf:Description>
     </events:generatedBy>
     <events:inXSDDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
     >2012-01-04T11:22:20.524+01:00</events:inXSDDateTime>
   </events:SwitchUpEvent>
   <events:SmartObject rdf:ID="zeo1"/>
-  <events:Functionality rdf:ID="AlarmFunctionality"/>
-  <rdf:Description rdf:nodeID="A5">
+  <events:SmartObject rdf:ID="lamp1">
+    <events:functionalitySink>
+      <events:Functionality rdf:ID="LightDimmable">
+        <owl:sameAs rdf:resource="#AdjustLevel"/>
+      </events:Functionality>
+    </events:functionalitySink>
+  </events:SmartObject>
+  <events:SmartObject rdf:ID="phone1">
+    <events:functionalitySource rdf:resource="#Alarm"/>
+  </events:SmartObject>
+  <rdf:Description rdf:nodeID="A8">
     <sp:object rdf:resource="http://spinrdf.org/spin#_arg1"/>
     <sp:predicate rdf:resource="#generatedBy"/>
     <sp:subject>
-      <rdf:Description rdf:nodeID="A6">
+      <rdf:Description rdf:nodeID="A9">
         <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
         >lastEvent</sp:varName>
       </rdf:Description>
     </sp:subject>
   </rdf:Description>
-  <rdf:Description rdf:nodeID="A7">
+  <rdf:Description rdf:nodeID="A10">
     <rdf:rest rdf:parseType="Collection">
       <rdf:Description>
         <sp:object>
-          <rdf:Description rdf:nodeID="A8">
+          <rdf:Description rdf:nodeID="A11">
             <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
             >last</sp:varName>
           </rdf:Description>
         </sp:object>
         <sp:predicate rdf:resource="#inXSDDateTime"/>
-        <sp:subject rdf:nodeID="A6"/>
+        <sp:subject rdf:nodeID="A9"/>
       </rdf:Description>
     </rdf:rest>
-    <rdf:first rdf:nodeID="A5"/>
+    <rdf:first rdf:nodeID="A8"/>
   </rdf:Description>
   <spin:Function rdf:ID="getMaxDateRsc">
     <spin:body>
       <sp:Select>
         <sp:orderBy rdf:parseType="Collection">
           <sp:Desc>
-            <sp:expression rdf:nodeID="A8"/>
+            <sp:expression rdf:nodeID="A11"/>
           </sp:Desc>
         </sp:orderBy>
         <sp:limit rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
         >1</sp:limit>
         <sp:resultVariables rdf:parseType="Collection">
-          <rdf:Description rdf:nodeID="A6"/>
+          <rdf:Description rdf:nodeID="A9"/>
         </sp:resultVariables>
-        <sp:where rdf:nodeID="A7"/>
+        <sp:where rdf:nodeID="A10"/>
       </sp:Select>
     </spin:body>
     <spin:constraint>
