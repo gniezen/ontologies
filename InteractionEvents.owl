@@ -89,6 +89,11 @@
       <owl:Class rdf:ID="AdjustLevelEvent"/>
     </rdfs:subClassOf>
   </owl:Class>
+  <owl:Class rdf:ID="AlarmAlertEvent">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="AlarmEvent"/>
+    </rdfs:subClassOf>
+  </owl:Class>
   <owl:Class rdf:ID="SmartObject_inOffState">
     <rdfs:subClassOf>
       <owl:Class rdf:ID="SmartObject"/>
@@ -131,6 +136,63 @@
       </owl:Restriction>
     </owl:equivalentClass>
   </owl:Class>
+  <owl:Class rdf:ID="SemanticTransformer">
+    <owl:disjointWith>
+      <owl:Class rdf:about="#SmartObject"/>
+    </owl:disjointWith>
+    <spin:rule>
+      <sp:Construct>
+        <sp:templates rdf:parseType="Collection">
+          <rdf:Description>
+            <sp:object rdf:resource="http://spinrdf.org/spin#_this"/>
+            <sp:predicate rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#connectedTo"/>
+            <sp:subject>
+              <rdf:Description rdf:nodeID="A4">
+                <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                >source</sp:varName>
+              </rdf:Description>
+            </sp:subject>
+          </rdf:Description>
+          <rdf:Description>
+            <sp:object>
+              <rdf:Description rdf:nodeID="A5">
+                <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                >sink</sp:varName>
+              </rdf:Description>
+            </sp:object>
+            <sp:predicate rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#connectedTo"/>
+            <sp:subject rdf:resource="http://spinrdf.org/spin#_this"/>
+          </rdf:Description>
+        </sp:templates>
+        <sp:where rdf:parseType="Collection">
+          <rdf:Description>
+            <sp:object rdf:resource="http://spinrdf.org/spin#_this"/>
+            <sp:predicate>
+              <owl:IrreflexiveProperty rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#canConnectTo">
+                <owl:propertyChainAxiom rdf:parseType="Collection">
+                  <owl:ObjectProperty rdf:ID="functionalitySource"/>
+                  <owl:ObjectProperty rdf:ID="isFunctionalityOfSink"/>
+                </owl:propertyChainAxiom>
+                <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+              </owl:IrreflexiveProperty>
+            </sp:predicate>
+            <sp:subject rdf:nodeID="A4"/>
+          </rdf:Description>
+          <rdf:Description>
+            <sp:object rdf:nodeID="A5"/>
+            <sp:predicate rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#canConnectTo"/>
+            <sp:subject rdf:resource="http://spinrdf.org/spin#_this"/>
+          </rdf:Description>
+          <rdf:Description>
+            <sp:object rdf:nodeID="A5"/>
+            <sp:predicate rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#connectedTo"/>
+            <sp:subject rdf:nodeID="A4"/>
+          </rdf:Description>
+        </sp:where>
+      </sp:Construct>
+    </spin:rule>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  </owl:Class>
   <owl:Class rdf:about="#SwitchOffEvent">
     <rdfs:subClassOf>
       <owl:Class rdf:ID="OnOffEvent"/>
@@ -165,7 +227,12 @@
     </owl:equivalentClass>
     <rdfs:subClassOf rdf:resource="#SetEvent"/>
     <rdfs:subClassOf>
-      <owl:Class rdf:ID="AlarmEvent"/>
+      <owl:Class rdf:about="#AlarmEvent"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="AlarmEndEvent">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#AlarmEvent"/>
     </rdfs:subClassOf>
   </owl:Class>
   <owl:Class rdf:ID="NightStartEvent">
@@ -176,6 +243,19 @@
     </rdfs:subClassOf>
   </owl:Class>
   <owl:Class rdf:ID="Source">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="#SmartObject"/>
+          <owl:Restriction>
+            <owl:someValuesFrom>
+              <owl:Class rdf:ID="Functionality"/>
+            </owl:someValuesFrom>
+            <owl:onProperty rdf:resource="#functionalitySource"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
     <rdfs:subClassOf>
       <owl:Class rdf:about="#SmartObject"/>
     </rdfs:subClassOf>
@@ -267,134 +347,8 @@
       <sp:Construct>
         <sp:templates rdf:parseType="Collection">
           <rdf:Description>
-            <sp:predicate>
-              <owl:ObjectProperty rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#indirectlyConnectedTo"/>
-            </sp:predicate>
-            <sp:object rdf:resource="http://spinrdf.org/spin#_this"/>
-            <sp:subject>
-              <rdf:Description rdf:nodeID="A4">
-                <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-                >source</sp:varName>
-              </rdf:Description>
-            </sp:subject>
-          </rdf:Description>
-          <rdf:Description>
-            <sp:subject rdf:resource="http://spinrdf.org/spin#_this"/>
-            <sp:predicate>
-              <owl:ObjectProperty rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#indirectlyConnectedTo"/>
-            </sp:predicate>
-            <sp:object>
-              <rdf:Description rdf:nodeID="A5">
-                <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-                >sink</sp:varName>
-              </rdf:Description>
-            </sp:object>
-          </rdf:Description>
-        </sp:templates>
-        <sp:where rdf:parseType="Collection">
-          <rdf:Description>
-            <sp:subject rdf:nodeID="A4"/>
-            <sp:object rdf:resource="http://spinrdf.org/spin#_this"/>
-            <sp:predicate>
-              <owl:ObjectProperty rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#canConnectTo"/>
-            </sp:predicate>
-          </rdf:Description>
-          <rdf:Description>
-            <sp:subject rdf:resource="http://spinrdf.org/spin#_this"/>
-            <sp:object rdf:nodeID="A5"/>
-            <sp:predicate>
-              <owl:ObjectProperty rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#canConnectTo"/>
-            </sp:predicate>
-          </rdf:Description>
-          <rdf:Description>
-            <sp:object rdf:nodeID="A5"/>
-            <sp:subject rdf:nodeID="A4"/>
-            <sp:predicate rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#connectedTo"/>
-          </rdf:Description>
-          <rdf:Description>
-            <sp:predicate>
-              <owl:ObjectProperty rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#canIndirectlyConnectTo"/>
-            </sp:predicate>
-            <sp:subject rdf:nodeID="A4"/>
-            <sp:object rdf:nodeID="A5"/>
-          </rdf:Description>
-          <sp:Filter>
-            <sp:expression>
-              <sp:notExists>
-                <sp:elements rdf:parseType="Collection">
-                  <rdf:Description>
-                    <sp:predicate>
-                      <owl:ObjectProperty rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#directlyConnectedTo"/>
-                    </sp:predicate>
-                    <sp:object rdf:nodeID="A5"/>
-                    <sp:subject rdf:nodeID="A4"/>
-                  </rdf:Description>
-                </sp:elements>
-              </sp:notExists>
-            </sp:expression>
-          </sp:Filter>
-        </sp:where>
-      </sp:Construct>
-    </spin:rule>
-    <spin:rule>
-      <sp:Construct>
-        <sp:templates rdf:parseType="Collection">
-          <rdf:Description>
             <sp:object>
               <rdf:Description rdf:nodeID="A6">
-                <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-                >device</sp:varName>
-              </rdf:Description>
-            </sp:object>
-            <sp:predicate>
-              <owl:ObjectProperty rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#directlyConnectedTo"/>
-            </sp:predicate>
-            <sp:subject rdf:resource="http://spinrdf.org/spin#_this"/>
-          </rdf:Description>
-        </sp:templates>
-        <sp:where rdf:parseType="Collection">
-          <rdf:Description>
-            <sp:subject rdf:resource="http://spinrdf.org/spin#_this"/>
-            <sp:predicate rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#connectedTo"/>
-            <sp:object rdf:nodeID="A6"/>
-          </rdf:Description>
-          <rdf:Description>
-            <sp:predicate>
-              <owl:ObjectProperty rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#canConnectTo"/>
-            </sp:predicate>
-            <sp:object rdf:nodeID="A6"/>
-            <sp:subject rdf:resource="http://spinrdf.org/spin#_this"/>
-          </rdf:Description>
-          <sp:Filter>
-            <sp:expression>
-              <sp:notExists>
-                <sp:elements rdf:parseType="Collection">
-                  <rdf:Description>
-                    <sp:predicate>
-                      <owl:ObjectProperty rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#indirectlyConnectedTo"/>
-                    </sp:predicate>
-                    <sp:object rdf:parseType="Resource">
-                      <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-                      >sink</sp:varName>
-                    </sp:object>
-                    <sp:subject rdf:parseType="Resource">
-                      <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
-                      >source</sp:varName>
-                    </sp:subject>
-                  </rdf:Description>
-                </sp:elements>
-              </sp:notExists>
-            </sp:expression>
-          </sp:Filter>
-        </sp:where>
-      </sp:Construct>
-    </spin:rule>
-    <spin:rule>
-      <sp:Construct>
-        <sp:templates rdf:parseType="Collection">
-          <rdf:Description>
-            <sp:object>
-              <rdf:Description rdf:nodeID="A7">
                 <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
                 >lastEvent</sp:varName>
               </rdf:Description>
@@ -410,7 +364,7 @@
                 <sp:arg1 rdf:resource="http://spinrdf.org/spin#_this"/>
               </events:getMaxDateRsc>
             </sp:expression>
-            <sp:variable rdf:nodeID="A7"/>
+            <sp:variable rdf:nodeID="A6"/>
           </sp:Bind>
         </sp:where>
       </sp:Construct>
@@ -430,13 +384,26 @@
       <owl:Class rdf:about="#InteractionEvent"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:ID="Functionality">
+  <owl:Class rdf:about="#Functionality">
     <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   </owl:Class>
   <owl:Class rdf:ID="UpState">
     <rdfs:subClassOf rdf:resource="#DeviceState"/>
   </owl:Class>
   <owl:Class rdf:ID="Sink">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="#SmartObject"/>
+          <owl:Restriction>
+            <owl:someValuesFrom rdf:resource="#Functionality"/>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:ID="functionalitySink"/>
+            </owl:onProperty>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
     <rdfs:subClassOf rdf:resource="#SmartObject"/>
   </owl:Class>
   <owl:Class rdf:ID="SelectEvent">
@@ -480,36 +447,20 @@
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:ID="hasState"/>
   <owl:ObjectProperty rdf:ID="isFunctionalityofSource">
-    <owl:inverseOf>
-      <owl:ObjectProperty rdf:ID="functionalitySource"/>
-    </owl:inverseOf>
+    <owl:inverseOf rdf:resource="#functionalitySource"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#indirectlyConnectedTo">
     <rdfs:subPropertyOf rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#connectedTo"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:ID="isFunctionalityOfSink">
-    <owl:inverseOf>
-      <owl:ObjectProperty rdf:ID="functionalitySink"/>
-    </owl:inverseOf>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#canConnectTo">
-    <owl:propertyChainAxiom rdf:parseType="Collection">
-      <owl:ObjectProperty rdf:about="#functionalitySource"/>
-      <owl:ObjectProperty rdf:about="#isFunctionalityOfSink"/>
-    </owl:propertyChainAxiom>
+  <owl:ObjectProperty rdf:about="#isFunctionalityOfSink">
+    <owl:inverseOf rdf:resource="#functionalitySink"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#canIndirectlyConnectTo">
     <owl:propertyChainAxiom rdf:parseType="Collection">
-      <owl:ObjectProperty rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#canConnectTo"/>
-      <owl:ObjectProperty rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#canConnectTo"/>
+      <owl:IrreflexiveProperty rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#canConnectTo"/>
+      <owl:IrreflexiveProperty rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#canConnectTo"/>
     </owl:propertyChainAxiom>
     <rdfs:subPropertyOf rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#canConnectTo"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="#functionalitySource">
-    <rdfs:domain rdf:resource="#Source"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="#functionalitySink">
-    <rdfs:domain rdf:resource="#Sink"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#directlyConnectedTo">
     <owl:propertyDisjointWith rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#indirectlyConnectedTo"/>
@@ -573,7 +524,7 @@
         <sp:where rdf:parseType="Collection">
           <sp:Bind>
             <sp:variable>
-              <rdf:Description rdf:nodeID="A8">
+              <rdf:Description rdf:nodeID="A7">
                 <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
                 >x</sp:varName>
               </rdf:Description>
@@ -584,7 +535,7 @@
           </sp:Bind>
         </sp:where>
         <sp:resultVariables rdf:parseType="Collection">
-          <rdf:Description rdf:nodeID="A8"/>
+          <rdf:Description rdf:nodeID="A7"/>
         </sp:resultVariables>
       </sp:Select>
     </spin:body>
@@ -594,14 +545,14 @@
     <events:inXSDDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >2011-09-06T17:18:44</events:inXSDDateTime>
   </events:SwitchOffEvent>
-  <events:SmartObject rdf:ID="wakeup1">
-    <events:functionalitySource>
-      <events:Functionality rdf:ID="AdjustLevel"/>
-    </events:functionalitySource>
+  <events:SemanticTransformer rdf:ID="wakeup1">
     <events:functionalitySink>
       <events:Functionality rdf:ID="Alarm"/>
     </events:functionalitySink>
-  </events:SmartObject>
+    <events:functionalitySource>
+      <events:Functionality rdf:ID="AdjustLevel"/>
+    </events:functionalitySource>
+  </events:SemanticTransformer>
   <events:SetEvent rdf:ID="event-43495d53-29e3-11b2-807e-ac78eefc1f82">
     <events:generatedBy rdf:resource="#testlamp1"/>
     <events:dataValue rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
@@ -639,7 +590,7 @@
         <sp:where rdf:parseType="Collection">
           <rdf:Description>
             <sp:subject>
-              <rdf:Description rdf:nodeID="A9">
+              <rdf:Description rdf:nodeID="A8">
                 <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
                 >id</sp:varName>
               </rdf:Description>
@@ -650,13 +601,13 @@
           <rdf:Description>
             <sp:subject rdf:resource="http://spinrdf.org/spin#_this"/>
             <sp:predicate rdf:resource="http://www.sofia-project.eu/ontologies/core/2010/01/19/sofia.owl#hasIdentification"/>
-            <sp:object rdf:nodeID="A9"/>
+            <sp:object rdf:nodeID="A8"/>
           </rdf:Description>
           <rdf:Description>
-            <sp:subject rdf:nodeID="A9"/>
+            <sp:subject rdf:nodeID="A8"/>
             <sp:predicate rdf:resource="http://sofia.gotdns.com/ontologies/SemanticInteraction.owl#idValue"/>
             <sp:object>
-              <rdf:Description rdf:nodeID="A10">
+              <rdf:Description rdf:nodeID="A9">
                 <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
                 >tag</sp:varName>
               </rdf:Description>
@@ -667,7 +618,7 @@
           <rdf:Description>
             <sp:subject rdf:resource="http://spinrdf.org/spin#_this"/>
             <sp:predicate rdf:resource="http://sofia.gotdns.com/ontologies/SemanticConnections.owl#hasRFIDTag"/>
-            <sp:object rdf:nodeID="A10"/>
+            <sp:object rdf:nodeID="A9"/>
           </rdf:Description>
         </sp:templates>
       </sp:Construct>
@@ -686,46 +637,46 @@
       </events:SmartObject>
     </sc:connectedTo>
   </events:SmartObject>
-  <rdf:Description rdf:nodeID="A11">
+  <rdf:Description rdf:nodeID="A10">
     <sp:object>
-      <rdf:Description rdf:nodeID="A12">
+      <rdf:Description rdf:nodeID="A11">
         <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
         >last</sp:varName>
       </rdf:Description>
     </sp:object>
     <sp:predicate rdf:resource="#inXSDDateTime"/>
     <sp:subject>
-      <rdf:Description rdf:nodeID="A13">
+      <rdf:Description rdf:nodeID="A12">
         <sp:varName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
         >lastEvent</sp:varName>
       </rdf:Description>
     </sp:subject>
   </rdf:Description>
+  <rdf:Description rdf:nodeID="A13">
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    <rdf:first rdf:nodeID="A10"/>
+  </rdf:Description>
   <rdf:Description rdf:nodeID="A14">
     <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-    <rdf:first rdf:nodeID="A11"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A15">
-    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-    <rdf:first rdf:nodeID="A13"/>
+    <rdf:first rdf:nodeID="A12"/>
   </rdf:Description>
   <spin:Function rdf:ID="getMaxDateRsc">
     <spin:body>
       <sp:Select>
         <sp:orderBy rdf:parseType="Collection">
           <sp:Desc>
-            <sp:expression rdf:nodeID="A12"/>
+            <sp:expression rdf:nodeID="A11"/>
           </sp:Desc>
         </sp:orderBy>
         <sp:limit rdf:datatype="http://www.w3.org/2001/XMLSchema#long"
         >1</sp:limit>
-        <sp:resultVariables rdf:nodeID="A15"/>
+        <sp:resultVariables rdf:nodeID="A14"/>
         <sp:where rdf:parseType="Resource">
-          <rdf:rest rdf:nodeID="A14"/>
+          <rdf:rest rdf:nodeID="A13"/>
           <rdf:first rdf:parseType="Resource">
             <sp:object rdf:resource="http://spinrdf.org/spin#_arg1"/>
             <sp:predicate rdf:resource="#generatedBy"/>
-            <sp:subject rdf:nodeID="A13"/>
+            <sp:subject rdf:nodeID="A12"/>
           </rdf:first>
         </sp:where>
       </sp:Select>
